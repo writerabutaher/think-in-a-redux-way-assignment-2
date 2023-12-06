@@ -7,9 +7,9 @@ export const bookingAction = (value) => {
   };
 };
 
-export const deleteAction = (value) => {
+export const deleteAction = (id) => {
   return {
     type: DELETE,
-    payload: value,
+    payload: id,
   };
 };

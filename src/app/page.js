@@ -1,6 +1,6 @@
 "use client";
 
-import { bookingAction } from "@/redux/booking/actions";
+import { bookingAction, deleteAction } from "@/redux/booking/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
@@ -14,11 +14,10 @@ export default function Home() {
   // 8 show the data in console log
   // 9 update the ui with react state
   // 10 add more colum in ui
-  // * 11 delete the data
-  // * 12 after 3 booking warning
+  // 11 delete the data
+  // 12 after 3 booking button disable
 
   const bookings = useSelector((state) => state.bookingReducer.value);
-  console.log("bookings:", bookings);
   const dispatch = useDispatch();
 
   const handleSubmit = (data) => {
@@ -39,6 +38,10 @@ export default function Home() {
     };
 
     dispatch(bookingAction(formData));
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteAction(id));
   };
 
   return (
@@ -158,7 +161,12 @@ export default function Home() {
                 </div>
               </div>
 
-              <button className="addCity" type="submit" id="lws-addCity">
+              <button
+                className="addCity"
+                type="submit"
+                id="lws-addCity"
+                disabled={bookings.length >= 3}
+              >
                 <svg
                   width="15px"
                   height="15px"
@@ -219,7 +227,10 @@ export default function Home() {
                     </td>
                     <td className="px-6 py-4 text-center">
                       <div className="flex justify-center gap-4">
-                        <button className="lws-remove">
+                        <button
+                          onClick={() => handleDelete(index)}
+                          className="lws-remove"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

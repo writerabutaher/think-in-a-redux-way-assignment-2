@@ -12,8 +12,10 @@ export const bookingReducer = (state = initialState, action) => {
         value: [...state.value, action.payload],
       };
     case DELETE:
+      const bookingID = action.payload;
       return {
         ...state,
+        value: state.value.filter((booking, index) => index !== bookingID),
       };
 
     default:
